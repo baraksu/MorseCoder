@@ -10,6 +10,44 @@ strlen db 0
 strtxt db 100 dup(0)
 
 .CODE
+
+proc checker
+mov ax, 61h
+loop1:
+inc ax
+cmp dx,ax 
+je ax
+cmp dx,ax
+jne loop1 
+a:
+b:
+c:
+d:
+e:
+f:
+g:
+h:
+i:
+j:
+k:
+l:
+m:
+n:
+o:
+p:
+q:
+r:
+s:
+t:
+u:
+v:
+w:
+x:
+y:
+z:
+pop ax  
+pop dx
+endp checker
 start:
 mov ax,@data
 mov ds,ax
@@ -45,10 +83,18 @@ mov [bx],'$'
 lea dx,strtxt  ;print the string
 mov ah,09h
 int 21h
-
-
+mov cx, strlen
+mov bx, 02fh
+looper1
+inc bx
+push ax
+push dx
+call checker
+loop looper1
 exit:
-
+                  
+                  
+                  
 
 
 
