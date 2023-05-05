@@ -4,7 +4,7 @@
 .DATA
 msg1 db 'Enter a string: $' 
 msg2 db 'The string expected is: $'
-crlf    db 13,10,'$'
+crlf db 13,10,'$'
 aMorse db '.-  $'
 bMorse db '-... $'
 cMorse db '-.-.: $'
