@@ -43,8 +43,9 @@ strtxt db 100 dup(0)
 proc p
 push ax
 lea bx, letterOffset
-add bx,0
 mov [bx], ax
+pop ax
+pop bx
 ret
 endp p 
  
@@ -55,10 +56,13 @@ mov ds,ax
 xor ax,ax 
 xor dx,dx
 
-lea ax, aMorse
+letter: 
+lea ax, aMorse ; needs to find how to reach into each letter morse.
 push ax 
+push bx
 call p 
-
+inc bx
+loop letter
  
 lea DX,msg1 ;show msg1
 mov AH,09h
