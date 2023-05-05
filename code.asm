@@ -30,7 +30,9 @@ vMorse db ' $'
 wMorse db ' $'
 xMorse db ' $'
 yMorse db ' $' 
-zMorse db ' $'
+zMorse db ' $' 
+letterOffset db 32 dup(0)
+
 
 str db 100
 strlen db 0
@@ -44,7 +46,17 @@ mov ds,ax
 
 xor ax,ax 
 xor dx,dx
+ 
+;;;;;;;;;;;;  
+lea ax, aMorse
+proc p
+lea bx, letterOffset
+add bx,0
+mov [bx], ax
+endp  
 
+
+;;;;;;;;;;;
 
 lea DX,msg1 ;show msg1
 mov AH,09h
