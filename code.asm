@@ -42,27 +42,71 @@ strtxt db 100 dup(0)
 .CODE
 proc p
 push ax
+push bx
 lea bx, letterOffset
 mov [bx], ax
-pop ax
-pop bx
-ret
+ret 2
 endp p 
  
 start:
 mov ax,@data
 mov ds,ax
-
 xor ax,ax 
 xor dx,dx
 
-letter: 
-lea ax, aMorse ; needs to find how to reach into each letter morse.
-push ax 
-push bx
+lea ax, aMorse
 call p 
-inc bx
-loop letter
+lea ax, bMorse
+call p 
+lea ax, cMorse
+call p 
+lea ax, dMorse
+call p 
+lea ax, eMorse
+call p 
+lea ax, fMorse
+call p 
+lea ax, gMorse
+call p 
+lea ax, hMorse
+call p 
+lea ax, iMorse
+call p 
+lea ax, jMorse
+call p 
+lea ax, kMorse
+call p 
+lea ax, lMorse
+call p 
+lea ax, mMorse
+call p 
+lea ax, nMorse
+call p 
+lea ax, oMorse
+call p 
+lea ax, pMorse
+call p 
+lea ax, qMorse
+call p 
+lea ax, rMorse
+call p 
+lea ax, sMorse
+call p 
+lea ax, tMorse
+call p 
+lea ax, uMorse
+call p 
+lea ax, vMorse
+call p 
+lea ax, wMorse
+call p 
+lea ax, xMorse
+call p
+lea ax, yMorse
+call p 
+lea ax, zMorse
+call p  
+
  
 lea DX,msg1 ;show msg1
 mov AH,09h
