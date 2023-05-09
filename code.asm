@@ -44,16 +44,46 @@ proc p
 push ax
 push bx
 lea bx, letterOffset
+add bx, cx
+inc cx
 mov [bx], ax
-ret 2
-endp p 
- 
+inc bx
+pop bx
+pop ax
+ret 4
+endp p
+
+proc whichLetter
+push ax
+push cx
+push dx
+mov cx,26h
+mov dl, 61h
+
+letters:
+cmp al,Dl
+JE printer
+inc dl 
+loop letters
+pop ax
+pop cx
+pop dx
+
+printer:
+dec dl
+mov bl,dl
+mov dl, [letterOffset+bx]
+mov ah,09h
+int 21h 
+ret 6
+endp whichLetter    
+
 start:
 mov ax,@data
 mov ds,ax
 xor ax,ax 
 xor dx,dx
-
+xor cx,cx
 lea ax, aMorse
 call p 
 lea ax, bMorse
@@ -106,7 +136,7 @@ lea ax, yMorse
 call p 
 lea ax, zMorse
 call p  
-
+xor ax,ax
  
 lea DX,msg1 ;show msg1
 mov AH,09h
@@ -146,13 +176,14 @@ xor cx,cx
 xor ax,ax 
 xor bx,bx
 xor dx,dx
+
 mov cl ,strlen
 
 placeInString:
-mov dl, 61h
-mov al, [strtxt + bx]
-inc bx
+mov al, [strtxt + SI]
+inc SI
+call whichLetter
 
 loop placeInString
 exit:
-END
+END start
