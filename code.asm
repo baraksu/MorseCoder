@@ -7,7 +7,7 @@ msg2 db 'The string expected is: $'
 crlf db 13,10,'$'
 aMorse db '.-  $'
 bMorse db '-... $'
-cMorse db '-.-.: $'
+cMorse db '-.-. $'
 dMorse db '-.. $'
 eMorse db '. $'
 fMorse db '..-. $'
@@ -40,47 +40,81 @@ strtxt db 100 dup(0)
 
 
 .CODE
-proc p
-push ax
-push bx
+proc p     
 lea bx, letterOffset
 add bx, cx
 inc cx
 mov [bx], ax
 inc bx
-pop bx
-pop ax
-ret 4
+ret  
 endp p
 
 proc whichLetter
 push ax
-push cx
+push bx
+push cx 
 push dx
 mov cx,26h
-mov dl, 61h
+mov dl, 61h                     ;Do a checker  for capital letters
 
-letters:
+letters: 
 cmp al,Dl
 JE printer
 inc dl 
 loop letters
-pop ax
-pop cx
-pop dx
-
 printer:
-dec dl
+sub dl,61h
 mov bl,dl
-mov dl, [letterOffset+bx]
+mov bl,[letterOffset+bx]
+mov dl,bl
 mov ah,09h
 int 21h 
-ret 6
+pop dx
+pop cx
+pop bx
+pop ax
+ret 8
 endp whichLetter    
 
 start:
 mov ax,@data
 mov ds,ax
+
+ 
+lea DX,msg1 ;show msg1
+mov AH,09h
+int 21h 
+        
+     
+lea dx,str
+mov AH,0Ah  ;Read a string
+int 21h   
+
+
+lea DX,crlf ;New line
+ mov AH,09h
+int 21h
+
+lea dx,msg2 ;show message 2
+mov ah,09h
+int 21h
+
+xor ax,ax      ;save the string
+mov al, strlen
+lea bx, strtxt
+add bx,ax
+mov [bx],'$' 
+
+lea dx,strtxt  ;print the string
+mov ah,09h
+int 21h
+mov cl, strlen
+mov bx, 02fh
+
+lea DX,crlf ;New line
+ mov AH,09h
+int 21h
+
 xor ax,ax 
 xor dx,dx
 xor cx,cx
@@ -136,42 +170,6 @@ lea ax, yMorse
 call p 
 lea ax, zMorse
 call p  
-xor ax,ax
- 
-lea DX,msg1 ;show msg1
-mov AH,09h
-int 21h 
-        
-     
-lea dx,str
-mov AH,0Ah  ;Read a string
-int 21h   
-
-
-lea DX,crlf ;New line
- mov AH,09h
-int 21h
-
-lea dx,msg2 ;show message 2
-mov ah,09h
-int 21h
-
-xor ax,ax      ;save the string
-mov al, strlen
-lea bx, strtxt
-add bx,ax
-mov [bx],'$' 
-
-lea dx,strtxt  ;print the string
-mov ah,09h
-int 21h
-mov cl, strlen
-mov bx, 02fh
-
-lea DX,crlf ;New line
- mov AH,09h
-int 21h
-
 xor cx,cx   
 xor ax,ax 
 xor bx,bx
