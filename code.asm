@@ -1,4 +1,4 @@
-.MODEL small
+ .MODEL small
 .STACK 100h
 
 .DATA
@@ -30,7 +30,8 @@ vMorse db '...- $'
 wMorse db '.-- $'
 xMorse db '-..- $'
 yMorse db '-.-- $' 
-zMorse db '--.. $' 
+zMorse db '--.. $'
+ 
 letterOffset db 32 dup(0)
 
 
@@ -49,32 +50,26 @@ inc bx
 ret  
 endp p
 
-proc whichLetter
+proc capital  
+add ax,20h
+jmp printLetter
+endp capital  
+
+proc printLetter
 push ax
 push bx
-push cx 
-push dx
-mov cx,26h
-mov dl, 61h                     ;Do a checker  for capital letters
-
-letters: 
-cmp al,Dl
-JE printer
-inc dl 
-loop letters
-printer:
-sub dl,61h
-mov bl,dl
+push dx                      ;Do a checker  for /,.
+sub al,61h
+mov bl,al
 mov bl,[letterOffset+bx]
 mov dl,bl
 mov ah,09h
 int 21h 
 pop dx
-pop cx
 pop bx
 pop ax
-ret 8
-endp whichLetter    
+ret 0
+endp printLetter    
 
 start:
 mov ax,@data
@@ -180,8 +175,22 @@ mov cl ,strlen
 placeInString:
 mov al, [strtxt + SI]
 inc SI
-call whichLetter
-
+cmp al,61h
+jb notletter
+cmp al,07Ah
+ja notletter 
+call printLetter
+notletter:
+cmp al,41h
+jb notcapital
+cmp al,05Ah
+ja notcapital
+call capital
+notcapital:
 loop placeInString
+
+
+
+
 exit:
 END start
