@@ -31,8 +31,20 @@ wMorse db '.-- $'
 xMorse db '-..- $'
 yMorse db '-.-- $' 
 zMorse db '--.. $'
+zeroMorse db '----- $'
+oneMorse db '.---- $'
+twoMorse db '..--- $'
+threeMorse db '...-- $'
+fourMorse db '....- $'
+fiveMorse db '..... $'
+sixMorse db '-.... $'
+sevenMorse db '--... $'
+eightMorse db '---.. $'
+nineMorse db '----. $'
+
+
  
-letterOffset db 32 dup(0)
+letterOffset db 40 dup(0)
 
 
 str db 100
@@ -53,12 +65,28 @@ endp p
 proc capital  
 add ax,20h
 jmp printLetter
-endp capital  
+endp capital
 
+proc number
+push ax
+push bx
+push dx
+add ax,26
+sub ax,30h
+mov bl,al
+mov bl,[letterOffset+bx]
+mov dl,bl
+mov ah,09h
+int 21h
+pop dx
+pop bx
+pop ax
+ret 6 
+endp number
 proc printLetter
 push ax
 push bx
-push dx                      ;Do a checker  for /,.
+push dx                      ;Do a checker  for /,.   
 sub al,61h
 mov bl,al
 mov bl,[letterOffset+bx]
@@ -164,7 +192,28 @@ call p
 lea ax, yMorse
 call p 
 lea ax, zMorse
-call p  
+call p
+lea ax, zeroMorse
+call p
+lea ax, oneMorse
+call p
+lea ax, twoMorse
+call p
+lea ax, threeMorse
+call p
+lea ax, fourMorse
+call p
+lea ax, fiveMorse
+call p
+lea ax, sixMorse
+call p
+lea ax, sevenMorse
+call p
+lea ax, eightMorse
+call p
+lea ax, nineMorse
+call p
+ 
 xor cx,cx   
 xor ax,ax 
 xor bx,bx
@@ -187,6 +236,12 @@ cmp al,05Ah
 ja notcapital
 call capital
 notcapital:
+cmp al,30h
+jb notnumber
+cmp al,39h
+ja notnumber
+call number
+notnumber:
 loop placeInString
 
 
