@@ -41,10 +41,21 @@ sixMorse db '-.... $'
 sevenMorse db '--... $'
 eightMorse db '---.. $'
 nineMorse db '----. $'
-
+quotationMarkMorse db '--..-- $' ; Quotation Mark (")
+numberSignMorse db '.-..-. $' ; Number Sign (#)
+dollarSignMorse db '...-..- $' ; Dollar Sign ($)
+percentSignMorse db '-.-..-. $' ; Percent Sign (%)
+ampersandMorse db '.-... $' ; Ampersand (&)
+singleQuoteMorse db '.----. $' ; Single Quote (')
+asteriskMorse db '-..-.- $' ; Asterisk (*)
+plusSignMorse db '.-.-. $' ; Plus Sign (+)
+commaMorse db '--..-- $' ; Comma (,)
+hyphenMorse db '-....- $' ; Hyphen (-)
+periodMorse db '.-.-.- $' ; Period (.)
+forwardSlashMorse db '-..-. $' ; Forward Slash (/)
 
  
-letterOffset db 40 dup(0)
+letterOffset db 55 dup(0)
 
 
 str db 100
@@ -61,6 +72,21 @@ mov [bx], ax
 inc bx
 ret  
 endp p
+proc punctuationmarks1
+push ax
+push bx                           ;fix the problem
+push dx 
+add ax,2h
+mov bl,al
+mov bl,[letterOffset+bx]
+mov dx,bx
+mov ah,09h
+int 21h
+pop dx
+pop bx
+pop ax
+ret 6 
+endp punctuationmarks1    
 
 proc capital  
 add ax,20h
@@ -71,8 +97,7 @@ proc number
 push ax
 push bx
 push dx
-add ax,26
-sub ax,30h
+sub ax,22
 mov bl,al
 mov bl,[letterOffset+bx]
 mov dl,bl
@@ -90,7 +115,7 @@ push dx                      ;Do a checker  for /,.
 sub al,61h
 mov bl,al
 mov bl,[letterOffset+bx]
-mov dl,bl
+mov dx,bx
 mov ah,09h
 int 21h 
 pop dx
@@ -213,6 +238,31 @@ lea ax, eightMorse
 call p
 lea ax, nineMorse
 call p
+lea ax, quotationMarkMorse
+call p
+lea ax, numberSignMorse
+call p
+lea ax, dollarSignMorse
+call p
+lea ax, percentSignMorse
+call p
+lea ax, ampersandMorse
+call p
+lea ax, singleQuoteMorse
+call p
+lea ax, asteriskMorse
+call p
+lea ax, plusSignMorse
+call p
+lea ax, commaMorse
+call p
+lea ax, hyphenMorse
+call p
+lea ax, periodMorse
+call p
+lea ax, forwardSlashMorse
+call p
+
  
 xor cx,cx   
 xor ax,ax 
@@ -242,7 +292,14 @@ cmp al,39h
 ja notnumber
 call number
 notnumber:
+cmp al,22h
+jb notSign
+cmp al,02Fh
+ja notSign
+call punctuationmarks1
+notSign:
 loop placeInString
+
 
 
 
