@@ -3,8 +3,9 @@
 
 .DATA
 msg1 db 'Enter a string: $' 
-msg2 db 'The string expected is: $'
+msg2 db 13,10, 'The string expected is: $'
 msg3 db '# $'
+msg4 db 13,10,'Hit any key to exit',13,10,'$'
 crlf db 13,10,'$'
 
 aMorse db '.-  $'
@@ -87,11 +88,11 @@ proc punctuationmarks1
 push ax
 push bx                           ;fix the problem
 push dx 
-sub al, 58
-add al, 16
+sub al, 32
+add al, 36
 mov bl, al
 mov bh, 0
-mov bl, [letterOffset+bx] 
+mov bl, [letterOffset+bx]                
 mov dl, bl
 mov ah, 09h
 int 21h
@@ -105,8 +106,8 @@ proc punctuationmarks2
 push ax
 push bx                           ;fix the problem
 push dx 
-sub al, 32
-add al, 36
+sub al, 58
+add al, 48 
 mov bl, al
 mov bh, 0
 mov bl, [letterOffset+bx] 
@@ -153,7 +154,7 @@ int 21h
 pop dx
 pop bx
 pop ax
-ret 0
+ret 6
 endp printLetter    
 
 start:
@@ -393,6 +394,7 @@ cmp al,07Ah
 ja notletter 
 
 call printLetter
+jmp afterPrint
 
 notletter:
 cmp al,41h
@@ -402,6 +404,7 @@ cmp al,05Ah
 ja notcapital
 
 call capital
+jmp afterPrint
 
 notcapital:
 cmp al,30h
@@ -411,6 +414,7 @@ cmp al,39h
 ja notnumber
 
 call number
+jmp afterPrint  
 
 notnumber:
 cmp al,20h
@@ -420,6 +424,7 @@ cmp al,02Fh
 ja notSign1
 
 call punctuationmarks1
+jmp afterPrint
 
 notSign1:
 
@@ -429,13 +434,27 @@ jb cantBeTranslated
 cmp al,40h
 ja cantBeTranslated
 
+call punctuationmarks2
+jmp afterPrint
+
 cantBeTranslated: 
 
 lea dx, msg3
 mov ah,09h
 int 21h
 
+afterPrint:
+
 loop placeInString
 
-exit:
+lea DX,msg4 ;Show msg3 on screen
+mov AH,09h
+int 21h
+        
+mov AH,01h  ;Read a character
+int 21h  
+
+exit:   mov AH,4Ch  ;End program
+        int 21h
+
 END start
