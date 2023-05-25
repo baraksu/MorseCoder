@@ -8,6 +8,7 @@ msg2 db 13,10, 'The string expected is: $'
 msg3 db '# $'
 msg4 db 13,10,'Hit any key to exit',13,10,'$'
 crlf db 13,10,'$'
+starter db 0
 
 aMorse db '.-  $'
 bMorse db '-... $'
@@ -77,6 +78,22 @@ strtxt db 100 dup(0)
 
 
 .CODE
+proc segmant
+push dx
+mov dx,0730h
+mov DS,dx         
+pop dx
+ret 2
+endp segmant
+
+proc unsegmant
+push dx
+mov dx,0720h
+mov DS,dx         
+pop dx
+ret 2
+endp unsegmant
+
 proc p      
 lea bx, letterOffset
 add bx, cx
@@ -87,16 +104,18 @@ endp p
 
 proc punctuationmarks1
 push ax
-push bx                           ;fix the problem
+push bx                           ;fix the problem of return
 push dx 
 sub al, 32
-add al, 36
-mov bl, al
-mov bh, 0
+add bl, al
 mov bl, [letterOffset+bx]                
 mov dl, bl
 mov ah, 09h
+
+call segmant
 int 21h
+
+call unsegmant
 pop dx
 pop bx
 pop ax                                                
@@ -105,19 +124,21 @@ endp punctuationmarks1
 
 proc punctuationmarks2
 push ax
-push bx                           ;fix the problem
+push bx                           ;fix the problem of return
 push dx 
 sub al, 58
-add al, 48 
-mov bl, al
-mov bh, 0
-mov bl, [letterOffset+bx] 
+add bl, al
+mov bl, [letterOffset+bx]                
 mov dl, bl
 mov ah, 09h
+
+call segmant
 int 21h
+
+call unsegmant
+pop dx
 pop bx
-pop ax
-pop dx                                                
+pop ax                                                                                                
 ret 6 
 endp punctuationmarks2
 
@@ -128,18 +149,28 @@ endp capital
 
 proc number
 push ax
-push bx
+push bx               ;fix the problem of return
 push dx
-sub ax,22
-mov bl,al
+
+xor dx,dx
+add bl,al
+sub bl,48
 mov bl,[letterOffset+bx]
 mov dl,bl
 mov ah,09h
-int 21h
+
+cmp al,37h
+jb no 
+call segmant
+no:
+int 21h 
+
+call unsegmant
+
 pop dx
 pop bx
 pop ax
-ret 6 
+ret 8
 endp number
 
 proc printLetter
@@ -147,7 +178,7 @@ push ax
 push bx
 push dx                        
 sub al,61h
-mov bl,al
+add bl,al
 mov bl,[letterOffset+bx]
 mov dx,bx
 mov ah,09h
@@ -385,6 +416,9 @@ xor dx,dx
 mov cl ,strlen
 
 placeInString:
+mov starter,0
+mov bl, starter 
+
 mov al, [strtxt + SI]
 inc SI
 
@@ -408,6 +442,9 @@ call capital
 jmp afterPrint
 
 notcapital:
+add bl,26  
+mov starter,bl
+
 cmp al,30h
 jb notnumber
 
@@ -418,6 +455,8 @@ call number
 jmp afterPrint  
 
 notnumber:
+add bl,10  
+
 cmp al,20h
 jb notSign1
 
@@ -428,6 +467,7 @@ call punctuationmarks1
 jmp afterPrint
 
 notSign1:
+add bl, 16
 
 cmp al,03Ah
 jb cantBeTranslated
@@ -448,14 +488,15 @@ afterPrint:
 
 loop placeInString
 
-lea DX,msg4 ;Show msg3 on screen
+lea DX,msg4 ;Show msg4 on screen
 mov AH,09h
 int 21h
         
 mov AH,01h  ;Read a character
 int 21h  
 
-exit:   mov AH,4Ch  ;End program
-        int 21h
+exit:   
+mov AH,4Ch  ;End program
+int 21h
 
 END start
