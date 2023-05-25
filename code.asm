@@ -1,4 +1,5 @@
- .MODEL small
+; version 100 
+.MODEL small
 .STACK 100h
 
 .DATA
@@ -76,7 +77,7 @@ strtxt db 100 dup(0)
 
 
 .CODE
-proc p     
+proc p      
 lea bx, letterOffset
 add bx, cx
 inc cx
@@ -96,9 +97,9 @@ mov bl, [letterOffset+bx]
 mov dl, bl
 mov ah, 09h
 int 21h
+pop dx
 pop bx
-pop ax
-pop dx                                                
+pop ax                                                
 ret 6 
 endp punctuationmarks1
 
