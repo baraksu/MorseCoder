@@ -170,7 +170,7 @@ call unsegmant
 pop dx
 pop bx
 pop ax
-ret 8
+ret 6
 endp number
 
 proc printLetter
