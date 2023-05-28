@@ -8,7 +8,6 @@ msg2 db 13,10, 'The string expected is: $'
 msg3 db '# $'
 msg4 db 13,10,'Hit any key to exit',13,10,'$'
 crlf db 13,10,'$'
-starter db 0
 
 aMorse db '.-  $' ;translating the characters for their morse ttanslations
 bMorse db '-... $' 
@@ -348,7 +347,7 @@ call p
 lea ax, quotationMarkMorse  
 call p
 
-lea ax, msg3
+lea ax, msg3  ; will show msg3 when entered
 call p
 
 lea ax, dollarSignMorse
@@ -390,16 +389,16 @@ call p
 lea ax, colonMorse
 call p 
 
-lea ax, msg3
+lea ax, msg3 ; will show msg3 when entered
 call p
 
-lea ax, msg3
+lea ax, msg3 ; will show msg3 when entered
 call p
 
 lea ax, equalMorse
 call p 
 
-lea ax, msg3
+lea ax, msg3  ; will show msg3 when entered
 call p
 
 lea ax, questionMarkMorse
@@ -416,8 +415,7 @@ xor dx,dx
 mov cl ,strlen
 
 placeInString:
-mov starter,0
-mov bl, starter 
+mov bl,0
 
 mov al, [strtxt + SI]
 inc SI
@@ -481,7 +479,7 @@ jmp afterPrint
 cantBeTranslated: 
 
 lea dx, msg3
-mov ah,09h
+mov ah,09h.     ;show msg3 on screen
 int 21h
 
 afterPrint:
