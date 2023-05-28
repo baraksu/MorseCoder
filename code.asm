@@ -10,8 +10,8 @@ msg4 db 13,10,'Hit any key to exit',13,10,'$'
 crlf db 13,10,'$'
 starter db 0
 
-aMorse db '.-  $'
-bMorse db '-... $'
+aMorse db '.-  $' ;translating the characters for their morse ttanslations
+bMorse db '-... $' 
 cMorse db '-.-. $'
 dMorse db '-.. $'
 eMorse db '. $'
