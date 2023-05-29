@@ -82,7 +82,7 @@ push dx
 mov dx,0730h
 mov DS,dx         
 pop dx
-ret 2
+ret 
 endp segmant
 
 proc unsegmant
@@ -90,7 +90,7 @@ push dx
 mov dx,0720h
 mov DS,dx         
 pop dx
-ret 2
+ret 
 endp unsegmant
 
 proc p      
