@@ -441,7 +441,6 @@ jmp afterPrint
 
 notcapital:
 add bl,26  
-mov starter,bl
 
 cmp al,30h
 jb notnumber
@@ -479,7 +478,7 @@ jmp afterPrint
 cantBeTranslated: 
 
 lea dx, msg3
-mov ah,09h.     ;show msg3 on screen
+mov ah,09h    ;show msg3 on screen
 int 21h
 
 afterPrint:
