@@ -50,7 +50,7 @@ nineMorse db '----. $'
 spaceMorse db '/$' ;< >
 exclamationmark db '-.-.-- $';<!>
 quotationMarkMorse db '.-..-. $' ; Quotation Mark (")
-;numberSignMorse db ' $' ; Number Sign (#)
+noneTranslate db ' #$' ; Number Sign (#)
 dollarSignMorse db '...-..- $' ; Dollar Sign ($)
 percentSignMorse db '-.-..-. $' ; Percent Sign (%)
 ampersandMorse db '.-... $' ; Ampersand (&)
@@ -347,7 +347,7 @@ call p
 lea ax, quotationMarkMorse  
 call p
 
-lea ax, msg3  ; will show msg3 when entered
+lea ax, noneTranslate 
 call p
 
 lea ax, dollarSignMorse
@@ -389,16 +389,16 @@ call p
 lea ax, colonMorse
 call p 
 
-lea ax, msg3 ; will show msg3 when entered
+lea ax, noneTranslate
 call p
 
-lea ax, msg3 ; will show msg3 when entered
+lea ax, noneTranslate
 call p
 
 lea ax, equalMorse
 call p 
 
-lea ax, msg3  ; will show msg3 when entered
+lea ax,noneTranslate
 call p
 
 lea ax, questionMarkMorse
@@ -477,8 +477,8 @@ jmp afterPrint
 
 cantBeTranslated: 
 
-lea dx, msg3
-mov ah,09h    ;show msg3 on screen
+lea dx, noneTranslate
+mov ah,09h  
 int 21h
 
 afterPrint:
