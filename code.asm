@@ -6,6 +6,7 @@
 msg1 db 'Enter a string: $' 
 msg2 db 'The string expected is: $'
 msg3 db 13,10,'Hit any key to exit $'
+msg4 db 13,10, ' The string in code morse: $'
 crlf db 13,10,'$'
 
 aMorse db '.-  $' ;translating the characters for their morse ttanslations
@@ -408,7 +409,10 @@ call p
 lea ax, strudelMorse ; put the location of strudelMorse in ax
 call p
  
-
+xor ax,ax
+lea dx, msg4
+mov ah, 09h
+int 21h
 xor cx,cx   
 xor ax,ax 
 xor bx,bx
