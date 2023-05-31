@@ -46,7 +46,7 @@ sevenMorse db '--... $'
 eightMorse db '---.. $'
 nineMorse db '----. $'
 
-spaceMorse db '/$' ;< >
+spaceMorse db '/ $' ;< >
 exclamationmark db '-.-.-- $';<!>
 quotationMarkMorse db '.-..-. $' ; Quotation Mark (")
 noneTranslate db ' #$' ; Number Sign (#)
@@ -416,23 +416,23 @@ xor dx,dx
 
 mov cl ,strlen ;put the length of the string in cl
 
-placeInString:
-mov bl,0
+placeInString:  ; lop that goes throw every letter of the string by order.
+xor bx,bx
 
-mov al, [strtxt + SI]
+mov al, [strtxt + SI]  ; mov a char from the array strtxt from the SI place in the array to al 
 inc SI
 
-cmp al,61h
+cmp al,61h    ;check if the char is a letter if not jump to not letter
 jb notletter
 
 cmp al,07Ah
 ja notletter 
 
-call printLetter
-jmp afterPrint
+call printLetter ;if the char is a number it calls the procdure printLetter
+jmp afterPrint   ; after the procdure is done jump to the start of the translate of the next char 
 
 notletter:
-cmp al,41h
+cmp al,41h     ;check if the char is a capital letter if not jump to not notcapital
 jb notcapital
 
 cmp al,05Ah
