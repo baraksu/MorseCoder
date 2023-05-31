@@ -4,9 +4,8 @@
 
 .DATA
 msg1 db 'Enter a string: $' 
-msg2 db 13,10, 'The string expected is: $'
-msg3 db '# $'
-msg4 db 13,10,'Hit any key to exit',13,10,'$'
+msg2 db 'The string expected is: $'
+msg3 db 13,10,'Hit any key to exit $'
 crlf db 13,10,'$'
 
 aMorse db '.-  $' ;translating the characters for their morse ttanslations
@@ -180,6 +179,7 @@ sub al,61h
 add bl,al
 mov bl,[letterOffset+bx]
 mov dx,bx
+xor ax,ax
 mov ah,09h
 int 21h 
 pop dx
@@ -231,188 +231,190 @@ xor ax,ax
 xor dx,dx
 xor cx,cx
 
-lea ax, aMorse
-call p 
+lea ax, aMorse ; put the location of aMorse in ax
+call p
 
-lea ax, bMorse
+lea ax, bMorse ; put the location of bMorse in ax
+call p
+
+lea ax, cMorse ; put the location of cMorse in ax
+call p
+
+lea ax, dMorse ; put the location of dMorse in ax
+call p
+
+lea ax, eMorse ; put the location of eMorse in ax
+call p
+
+lea ax, fMorse ; put the location of fMorse in ax
+call p
+
+lea ax, gMorse ; put the location of gMorse in ax
+call p
+
+lea ax, hMorse ; put the location of hMorse in ax
+call p
+
+lea ax, iMorse ; put the location of iMorse in ax
+call p
+
+lea ax, jMorse ; put the location of jMorse in ax
+call p
+
+lea ax, kMorse ; put the location of kMorse in ax
+call p
+
+lea ax, lMorse ; put the location of lMorse in ax
+call p
+
+lea ax, mMorse ; put the location of mMorse in ax
+call p
+
+lea ax, nMorse ; put the location of nMorse in ax
+call p
+
+lea ax, oMorse ; put the location of oMorse in ax
+call p
+
+lea ax, pMorse ; put the location of pMorse in ax
+call p
+
+lea ax, qMorse ; put the location of qMorse in ax
+call p
+
+lea ax, rMorse ; put the location of rMorse in ax
+call p
+
+lea ax, sMorse ; put the location of sMorse in ax
+call p
+
+lea ax, tMorse ; put the location of tMorse in ax
+call p
+
+lea ax, uMorse ; put the location of uMorse in ax
+call p
+
+lea ax, vMorse ; put the location of vMorse in ax
+call p
+
+lea ax, wMorse ; put the location of wMorse in ax
+call p
+
+lea ax, xMorse ; put the location of xMorse in ax
+call p
+
+lea ax, yMorse ; put the location of yMorse in ax
+call p
+
+lea ax, zMorse ; put the location of zMorse in ax
+call p
+
+lea ax, zeroMorse ; put the location of zeroMorse in ax
+call p
+
+lea ax, oneMorse ; put the location of oneMorse in ax
+call p
+
+lea ax, twoMorse ; put the location of twoMorse in ax
+call p
+
+lea ax, threeMorse ; put the location of threeMorse in ax
+call p
+
+lea ax, fourMorse ; put the location of fourMorse in ax
+call p
+
+lea ax, fiveMorse ; put the location of fiveMorse in ax
+call p
+
+lea ax, sixMorse ; put the location of sixMorse in ax
+call p
+
+lea ax, sevenMorse ; put the location of sevenMorse in ax
+call p
+
+lea ax, eightMorse ; put the location of eightMorse in ax
+call p
+
+lea ax, nineMorse ; put the location of nineMorse in ax
+call p
+
+lea ax, spaceMorse ; put the location of spaceMorse in ax
+call p
+
+lea ax, exclamationmark ; put the location of exclamationmark in ax
+call p
+
+lea ax, quotationMarkMorse ; put the location of quotationMarkMorse in ax
+call p
+
+lea ax, noneTranslate ; put the location of noneTranslate in ax
+call p
+
+lea ax, dollarSignMorse ; put the location of dollarSignMorse in ax
+call p
+
+lea ax, percentSignMorse ; put the location of percentSignMorse in ax
+call p
+
+lea ax, ampersandMorse ; put the location of ampersandMorse in ax
+call p
+
+lea ax, singleQuoteMorse ; put the location of singleQuoteMorse in ax
+call p
+
+lea ax, ParenthesisLeft ; put the location of ParenthesisLeft in ax
+call p
+
+lea ax, ParenthesisRight ; put the location of ParenthesisRight in ax
+call p
+
+lea ax, asteriskMorse ; put the location of asteriskMorse in ax
+call p
+
+lea ax, plusSignMorse ; put the location of plusSignMorse in ax
+call p
+
+lea ax, commaMorse ; put the location of commaMorse in ax
+call p
+
+lea ax, hyphenMorse ; put the location of hyphenMorse in ax
+call p
+
+lea ax, periodMorse ; put the location of periodMorse in ax
+call p
+
+lea ax, forwardSlashMorse ; put the location of forwardSlashMorse in ax
+call p
+
+lea ax, colonMorse ; put the location of colonMorse in ax
+call p
+
+lea ax, noneTranslate ; put the location of noneTranslate in ax
+call p
+
+lea ax, noneTranslate ; put the location of noneTranslate in ax
+call p
+
+lea ax, equalMorse ; put the location of equalMorse in ax
+call p
+
+lea ax, noneTranslate ; put the location of noneTranslate in ax
+call p
+
+lea ax, questionMarkMorse ; put the location of questionMarkMorse in ax
+call p
+
+lea ax, strudelMorse ; put the location of strudelMorse in ax
 call p
  
-lea ax, cMorse
-call p
- 
-lea ax, dMorse
-call p
- 
-lea ax, eMorse
-call p
- 
-lea ax, fMorse
-call p 
-lea ax, gMorse
-call p 
-
-lea ax, hMorse
-call p 
-
-lea ax, iMorse
-call p
- 
-lea ax, jMorse
-call p 
-
-lea ax, kMorse
-call p 
-
-lea ax, lMorse
-call p 
-
-lea ax, mMorse
-call p 
-
-lea ax, nMorse
-call p 
-
-lea ax, oMorse
-call p 
-
-lea ax, pMorse
-call p 
-
-lea ax, qMorse
-call p 
-
-lea ax, rMorse
-call p 
-
-lea ax, sMorse
-call p 
-
-lea ax, tMorse
-call p 
-
-lea ax, uMorse
-call p 
-
-lea ax, vMorse
-call p 
-
-lea ax, wMorse
-call p 
-
-lea ax, xMorse
-call p
-
-lea ax, yMorse
-call p 
-
-lea ax, zMorse
-call p
-
-lea ax, zeroMorse
-call p
-
-lea ax, oneMorse
-call p
-
-lea ax, twoMorse
-call p
-
-lea ax, threeMorse
-call p
-
-lea ax, fourMorse
-call p
-
-lea ax, fiveMorse
-call p
-
-lea ax, sixMorse
-call p
-
-lea ax, sevenMorse
-call p
-
-lea ax, eightMorse
-call p
-
-lea ax, nineMorse
-call p
-
-lea ax, spaceMorse
-call p
-
-lea ax, exclamationmark
-call p
-
-lea ax, quotationMarkMorse  
-call p
-
-lea ax, noneTranslate 
-call p
-
-lea ax, dollarSignMorse
-call p
-
-lea ax, percentSignMorse
-call p
-
-lea ax, ampersandMorse
-call p
-
-lea ax, singleQuoteMorse
-call p 
-
-lea ax, ParenthesisLeft
-call p 
-
-lea ax, ParenthesisRight
-call p
-
-lea ax, asteriskMorse
-call p
-
-lea ax, plusSignMorse
-call p
-
-lea ax, commaMorse
-call p
-
-lea ax, hyphenMorse
-call p
-
-lea ax, periodMorse
-call p
-
-lea ax, forwardSlashMorse
-call p  
-
-lea ax, colonMorse
-call p 
-
-lea ax, noneTranslate
-call p
-
-lea ax, noneTranslate
-call p
-
-lea ax, equalMorse
-call p 
-
-lea ax,noneTranslate
-call p
-
-lea ax, questionMarkMorse
-call p 
-
-lea ax, strudelMorse
-call p 
 
 xor cx,cx   
 xor ax,ax 
 xor bx,bx
 xor dx,dx
 
-mov cl ,strlen
+mov cl ,strlen ;put the length of the string in cl
 
 placeInString:
 mov bl,0
@@ -485,7 +487,7 @@ afterPrint:
 
 loop placeInString
 
-lea DX,msg4 ;Show msg4 on screen
+lea DX,msg3 ;Show msg4 on screen
 mov AH,09h
 int 21h
         
