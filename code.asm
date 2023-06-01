@@ -439,11 +439,11 @@ notletter:
 cmp al,41h     ;check if the char is a capital letter if not jump to not notcapital
 jb notcapital
 
-cmp al,05Ah
+cmp al,05Ah 
 ja notcapital
 
 call capital
-jmp afterPrint
+jmp afterPrint  ; after the procdure is done jump to the start of the translate of the next char.
 
 notcapital:
 add bl,26  
@@ -455,7 +455,7 @@ cmp al,39h
 ja notnumber
 
 call number
-jmp afterPrint  
+jmp afterPrint   ; after the procdure is done jump to the start of the translate of the next char 
 
 notnumber:
 add bl,10  
@@ -467,7 +467,7 @@ cmp al,02Fh
 ja notSign1
 
 call punctuationmarks1
-jmp afterPrint
+jmp afterPrint  ; after the procdure is done jump to the start of the translate of the next char.
 
 notSign1:
 add bl, 16
@@ -483,7 +483,7 @@ jmp afterPrint
 
 cantBeTranslated: 
 
-lea dx, noneTranslate
+lea dx, noneTranslate ;show noneTranslate on screen.
 mov ah,09h  
 int 21h
 
@@ -491,7 +491,7 @@ afterPrint:
 
 loop placeInString
 
-lea DX,msg3 ;Show msg4 on screen
+lea DX,msg3 ;Show msg3 on screen
 mov AH,09h
 int 21h
         
