@@ -436,8 +436,7 @@ call printLetter
 jmp afterPrint   ; after the procdure is done jump to the start of the translate of the next char 
 
 notletter:
-cmp al,41h      ; after the procdure is done jump to the start of the translate of the next char 
-
+cmp al,41h        ;check if the char is a capital letter if not jump to notcapital
 jb notcapital
 
 cmp al,05Ah 
@@ -447,9 +446,9 @@ call capital
 jmp afterPrint  ; after the procdure is done jump to the start of the translate of the next char.
 
 notcapital:
-add bl,26  
+add bl,26   
 
-cmp al,30h
+cmp al,30h  ;check if the char is a number if not jump to not number
 jb notnumber
 
 cmp al,39h
