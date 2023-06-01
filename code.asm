@@ -410,7 +410,7 @@ lea ax, strudelMorse ; put the location of strudelMorse in ax
 call p
  
 xor ax,ax
-lea dx, msg4
+lea dx, msg4 ;show msg4 on screen.
 mov ah, 09h
 int 21h
 xor cx,cx   
