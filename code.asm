@@ -35,7 +35,7 @@ vMorse db '...- $'
 wMorse db '.-- $'
 xMorse db '-..- $'
 yMorse db '-.-- $' 
-zMorse db '--.. $'                                     ;string until 255
+zMorse db '--.. $'                                     
 
 zeroMorse db '----- $'
 oneMorse db '.---- $'
