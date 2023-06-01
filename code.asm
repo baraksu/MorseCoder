@@ -103,7 +103,7 @@ endp p
 
 proc punctuationmarks1
 push ax
-push bx                           ;fix the problem of return
+push bx                           
 push dx 
 sub al, 32
 add bl, al
@@ -123,7 +123,7 @@ endp punctuationmarks1
 
 proc punctuationmarks2
 push ax
-push bx                           ;fix the problem of return
+push bx                           
 push dx 
 sub al, 58
 add bl, al
@@ -148,7 +148,7 @@ endp capital
 
 proc number
 push ax
-push bx               ;fix the problem of return
+push bx               
 push dx
 
 xor dx,dx
