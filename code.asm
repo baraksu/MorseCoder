@@ -3,6 +3,7 @@
 .STACK 100h
 
 .DATA
+array db 0FFh dup(0)
 msg1 db 'Enter a string: $' 
 msg2 db 'The string expected is: $'
 msg3 db 13,10,'Hit any key to exit $'
@@ -34,12 +35,12 @@ vMorse db '...- $'
 wMorse db '.-- $'
 xMorse db '-..- $'
 yMorse db '-.-- $' 
-zMorse db '--.. $'
+zMorse db '--.. $'                                     ;string until 255
 
 zeroMorse db '----- $'
 oneMorse db '.---- $'
 twoMorse db '..--- $'
-threeMorse db '...--$'
+threeMorse db '...-- $'
 fourMorse db ' ....- $'
 fiveMorse db '..... $'
 sixMorse db '-.... $'
@@ -79,11 +80,18 @@ strtxt db 100 dup(0) ; an array that stores the string.
 .CODE
 proc segmant ;changing the segment of the data to 0730h 
 push dx
+mov dx,0740h
+mov DS,dx         
+pop dx
+ret 
+endp segmant 
+proc segmant2 ;changing the segment of the data to 0730h 
+push dx
 mov dx,0730h
 mov DS,dx         
 pop dx
 ret 
-endp segmant
+endp segmant2
 
 proc unsegmant ;returning the segment of the data to 0720h. 
 push dx
@@ -110,6 +118,7 @@ add bl, al
 mov bl, [letterOffset+bx]                
 mov dl, bl
 mov ah, 09h
+
 
 call segmant ;changing the data segment to 0730h because the punctuation marks are stored there.
 int 21h
@@ -150,14 +159,13 @@ proc number ;Getting ax, who stors a number and using the array letterOffset to 
 push ax
 push bx               
 push dx
-
 xor dx,dx
 add bl,al
 sub bl,48
 mov bl,[letterOffset+bx]
 mov dl,bl
 mov ah,09h
-
+call segmant2
 cmp al,34h
 jb no 
 call segmant ; check if it needed to change the segment and if it needed calls a procdure to change it.
@@ -175,17 +183,20 @@ endp number
 proc printLetter ;take the letter from ax and  print the letter ascii form using is location that is stored in the letterOffset array.
 push ax
 push bx
-push dx                        
+push dx 
+                      
 sub al,61h
 add bl,al
 mov bl,[letterOffset+bx]
 mov dx,bx
 xor ax,ax
 mov ah,09h
+call segmant2 
 int 21h 
+call unsegmant
 pop dx
 pop bx
-pop ax
+pop ax                                               
 ret 6
 endp printLetter    
 
