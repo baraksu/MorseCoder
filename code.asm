@@ -460,7 +460,7 @@ jmp afterPrint   ; after the procdure is done jump to the start of the translate
 notnumber:
 add bl,10  
 
-cmp al,20h
+cmp al,20h ; check if the char is a part of punctuationmarks1 if not jump to notsign1
 jb notSign1
 
 cmp al,02Fh
@@ -472,7 +472,7 @@ jmp afterPrint  ; after the procdure is done jump to the start of the translate 
 notSign1:
 add bl, 16
 
-cmp al,03Ah
+cmp al,03Ah ; check if the char is a part of punctuationmarks2 if not jump to notsign2
 jb cantBeTranslated
 
 cmp al,40h
@@ -485,7 +485,7 @@ jmp afterPrint  ; after the procdure is done jump to the start of the translate 
 cantBeTranslated: 
 
 lea dx, noneTranslate ;show noneTranslate on screen.
-mov ah,09h  
+mov ah,09h  9
 int 21h
 
 afterPrint:
