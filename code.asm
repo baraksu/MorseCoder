@@ -70,14 +70,14 @@ questionMarkMorse db '..--.. $' ;<?>
 strudelMorse db '.--.-. $' ;<@>
 
 
-letterOffset db 100 dup(0)
-str db 100
-strlen db 0
-strtxt db 100 dup(0)
+letterOffset db 100 dup(0) ;creating an array of the offsets of the vars.
+str db 100 ; the max length of the string
+strlen db 0 ;the actual length of the string
+strtxt db 100 dup(0) ; an array that stores the string.
 
 
 .CODE
-proc segmant
+proc segmant ;changing the segment of the data to 0730h 
 push dx
 mov dx,0730h
 mov DS,dx         
@@ -85,7 +85,7 @@ pop dx
 ret 
 endp segmant
 
-proc unsegmant
+proc unsegmant ;returning the segment of the data to 0720h. 
 push dx
 mov dx,0720h
 mov DS,dx         
@@ -93,7 +93,7 @@ pop dx
 ret 
 endp unsegmant
 
-proc p      
+proc p      ;get ax which stors an offset of a var and puts it in the array letterOffset.
 lea bx, letterOffset
 add bx, cx
 inc cx
@@ -101,7 +101,7 @@ mov [bx], ax
 ret  
 endp p
 
-proc punctuationmarks1
+proc punctuationmarks1 ;printing the punctuation mark using is offset which is stored in the array letterOffset
 push ax
 push bx                           
 push dx 
@@ -111,17 +111,17 @@ mov bl, [letterOffset+bx]
 mov dl, bl
 mov ah, 09h
 
-call segmant
+call segmant ;changing the data segment to 0730h because the punctuation marks are stored there.
 int 21h
 
-call unsegmant
+call unsegmant ;returning the data segment back to is normal state
 pop dx
 pop bx
 pop ax                                                
 ret 6 
 endp punctuationmarks1
 
-proc punctuationmarks2
+proc punctuationmarks2 ;printing the punctuation mark using is offset which is stored in the array letterOffset
 push ax
 push bx                           
 push dx 
@@ -131,17 +131,17 @@ mov bl, [letterOffset+bx]
 mov dl, bl
 mov ah, 09h
 
-call segmant
+call segmant ;changing the data segment to 0730h because the punctuation marks are stored there.
 int 21h
 
-call unsegmant
+call unsegmant ;returning the data segment back to is normal state
 pop dx
 pop bx
 pop ax                                                                                                
 ret 6 
 endp punctuationmarks2
 
-proc capital  
+proc capital  ;Getting ax who stors a capital letter and changing it to store the same letter but in low case.
 add ax,20h
 jmp printLetter
 endp capital
