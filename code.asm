@@ -432,11 +432,12 @@ jb notletter
 cmp al,07Ah
 ja notletter 
 
-call printLetter ;if the char is a number it calls the procdure printLetter
+call printLetter  
 jmp afterPrint   ; after the procdure is done jump to the start of the translate of the next char 
 
 notletter:
-cmp al,41h     ;check if the char is a capital letter if not jump to not notcapital
+cmp al,41h      ; after the procdure is done jump to the start of the translate of the next char 
+
 jb notcapital
 
 cmp al,05Ah 
@@ -479,7 +480,8 @@ cmp al,40h
 ja cantBeTranslated
 
 call punctuationmarks2
-jmp afterPrint
+jmp afterPrint  ; after the procdure is done jump to the start of the translate of the next char 
+
 
 cantBeTranslated: 
 
