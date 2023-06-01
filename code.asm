@@ -485,7 +485,7 @@ jmp afterPrint  ; after the procdure is done jump to the start of the translate 
 cantBeTranslated: 
 
 lea dx, noneTranslate ;show noneTranslate on screen.
-mov ah,09h  9
+mov ah,09h  
 int 21h
 
 afterPrint:
