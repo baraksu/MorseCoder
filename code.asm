@@ -121,7 +121,7 @@ pop ax
 ret 6 
 endp punctuationmarks1
 
-proc punctuationmarks2 ;printing the punctuation mark using is offset which is stored in the array letterOffset
+proc punctuationmarks2 ;printing the letter ax morse translation using is offset which is stored in the array letterOffset
 push ax
 push bx                           
 push dx 
@@ -146,7 +146,7 @@ add ax,20h
 jmp printLetter
 endp capital
 
-proc number
+proc number ;Getting ax, who stors a number and using the array letterOffset to print the letter in her morse form.
 push ax
 push bx               
 push dx
@@ -160,11 +160,11 @@ mov ah,09h
 
 cmp al,37h
 jb no 
-call segmant
+call segmant ; check if it needed to change the segment and if it needed calls a procdure to change it.
 no:
 int 21h 
 
-call unsegmant
+call unsegmant ;returns the segment back to normal.
 
 pop dx
 pop bx
@@ -172,7 +172,7 @@ pop ax
 ret 6
 endp number
 
-proc printLetter
+proc printLetter ;take the letter from ax and  print the letter ascii form using is location that is stored in the letterOffset array.
 push ax
 push bx
 push dx                        
