@@ -61,6 +61,12 @@
 
 ### proc punctuationmarks2
 פרוצדורה שמשתמשת במשתנה () ומדפיסה את התרגום של הסימן לקוד מורס.
+### proc segmant
+changing data segment to 0740
+### proc segmant2
+changing data segment to 0730
+### proc unsegmant
+changing data segment to 0720
 
 
   <a name="תכניות"></a>
