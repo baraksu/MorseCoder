@@ -39,8 +39,8 @@ zMorse db '--.. $'
 zeroMorse db '----- $'
 oneMorse db '.---- $'
 twoMorse db '..--- $'
-threeMorse db '...-- $'
-fourMorse db '....- $'
+threeMorse db '...--$'
+fourMorse db ' ....- $'
 fiveMorse db '..... $'
 sixMorse db '-.... $'
 sevenMorse db '--... $'
@@ -158,7 +158,7 @@ mov bl,[letterOffset+bx]
 mov dl,bl
 mov ah,09h
 
-cmp al,37h
+cmp al,34h
 jb no 
 call segmant ; check if it needed to change the segment and if it needed calls a procdure to change it.
 no:
@@ -423,8 +423,10 @@ mov cl ,strlen ;put the length of the string in cl
 placeInString:  ; lop that goes throw every letter of the string by order.
 xor bx,bx
 
+
+
 mov al, [strtxt + SI]  ; mov a char from the array strtxt from the SI place in the array to al 
-inc SI
+inc SI 
 
 cmp al,61h    ;check if the char is a letter if not jump to not letter
 jb notletter
