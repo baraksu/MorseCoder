@@ -27,10 +27,19 @@
 מטרת התכנית היא לקלוט מחרוזת באנגלית ולתרגם אותה לקוד מורס
   <a name="איך"></a>
   ## איך זה עובד?
-  `הוסף כאן דוגמאות של זמן ריצה, תמונות והסברים`
+ `
+ 
+
   ### דגימות זמן ריצה
    
-  
+  ![2023-06-02 (2)](https://github.com/baraksu/MorseCoder/assets/131441205/8995aae7-106e-4db9-8709-6b9be3a7fced)
+  ![2023-06-02 (3)](https://github.com/baraksu/MorseCoder/assets/131441205/0c9acbae-3fc0-45f7-9ea5-cc946271f7c5)
+  ![2023-06-02 (5)](https://github.com/baraksu/MorseCoder/assets/131441205/bb07c7c8-f48a-4732-8436-e63b96523137)
+  ![2023-06-02 (8)](https://github.com/baraksu/MorseCoder/assets/131441205/7284c1df-dde6-4b87-b2f3-3f1b1533e8bf)
+![2023-06-02 (10)](https://github.com/baraksu/MorseCoder/assets/131441205/da2429e2-5cbf-4ba3-85a8-766461c3762c)
+
+
+
   
   <a name="שימוש"></a>
   ## כיצד להשתמש בתוכנית?
