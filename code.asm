@@ -51,7 +51,7 @@ nineMorse db '----. $'
 spaceMorse db '/ $' ;< >
 exclamationmark db '-.-.-- $';<!>
 quotationMarkMorse db '.-..-. $' ; Quotation Mark (")
-noneTranslate db ' #$' ; Number Sign (#)
+noneTranslate db ' # $' ; Number Sign (#)
 dollarSignMorse db '...-..- $' ; Dollar Sign ($)
 percentSignMorse db '-.-..-. $' ; Percent Sign (%)
 ampersandMorse db '.-... $' ; Ampersand (&)
@@ -74,7 +74,7 @@ strudelMorse db '.--.-. $' ;<@>
 letterOffset db 100 dup(0) ;creating an array of the offsets of the vars.
 str db 100 ; the max length of the string
 strlen db 0 ;the actual length of the string
-strtxt db 0FFh dup(0) ; an array that stores the string.
+strtxt db 100 dup(0) ; an array that stores the string.
 
 
 .CODE
