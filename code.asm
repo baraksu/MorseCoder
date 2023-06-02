@@ -4,7 +4,15 @@
 
 .DATA
 array db 0FFh dup(0)
-msg1 db 'Enter a string: $' 
+msg0 db  ''
+db ' _   _  ____   ____    ___   ___     ___  ____   ___   ___   ____  ',13,10
+db ') \_/ (/ __ \ /  _ \  (  _( ) __(   / _( / __ \ \   \ ) __( /  _ \ ',13,10
+db '|  _  |))__(( )  ' /  _) \  | _)    ))_  ))__(( | ) ( | _)  )  ' /'  ,13,10
+db ')_( )_(\____/ |_()_\ )____) )___(   \__( \____/ /___/ )___( |_()_\$'                                                                 
+                                                                    
+                                                                  
+
+msg1 db 13,10, 'Enter a string: $' 
 msg2 db 'The string expected is: $'
 msg3 db 13,10,'Hit any key to exit $'
 msg4 db 13,10, 'The string in code morse: $'
@@ -81,14 +89,14 @@ strtxt db 100 dup(0) ; an array that stores the string.
 .CODE
 proc segmant ;changing the segment of the data to 0730h 
 push dx
-mov dx,0740h
+mov dx,0750h
 mov DS,dx         
 pop dx
 ret 
 endp segmant 
 proc segmant2 ;changing the segment of the data to 0730h 
 push dx
-mov dx,0730h
+mov dx,0740h
 mov DS,dx         
 pop dx
 ret 
@@ -186,9 +194,12 @@ sub al,61h
 add bl,al
 mov bl,[letterOffset+bx]
 mov dx,bx
-xor ax,ax
 mov ah,09h
-call segmant2 
+call segmant2
+cmp al,17h
+jb no
+call segmant
+no: 
 int 21h 
 call unsegmant
 pop dx
@@ -201,7 +212,10 @@ start:
 mov ax,@data
 mov ds,ax
 
- 
+lea DX,msg0 ;show msg0
+mov AH,09h
+int 21h 
+
 lea DX,msg1 ;show msg1
 mov AH,09h
 int 21h 
