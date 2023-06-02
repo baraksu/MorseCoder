@@ -7,7 +7,8 @@ array db 0FFh dup(0)
 msg1 db 'Enter a string: $' 
 msg2 db 'The string expected is: $'
 msg3 db 13,10,'Hit any key to exit $'
-msg4 db 13,10, ' The string in code morse: $'
+msg4 db 13,10, 'The string in code morse: $'
+msg5 db 13,10, 'No string was entered. $'
 crlf db 13,10,'$'
 
 aMorse db '.-  $' ;translating the characters for their morse ttanslations
@@ -164,12 +165,8 @@ add bl,al
 sub bl,48
 mov bl,[letterOffset+bx]
 mov dl,bl
-mov ah,09h
-call segmant2
-cmp al,34h
-jb no 
+mov ah,09h 
 call segmant ; check if it needed to change the segment and if it needed calls a procdure to change it.
-no:
 int 21h 
 
 call unsegmant ;returns the segment back to normal.
@@ -219,6 +216,9 @@ lea DX,crlf ;New line
  mov AH,09h
 int 21h
 
+cmp strlen,0 
+je noString
+
 lea dx,msg2 ;show message 2
 mov ah,09h
 int 21h
@@ -229,11 +229,10 @@ lea bx, strtxt
 add bx,ax
 mov [bx],'$' 
 
+
 lea dx,strtxt  ;print the string
 mov ah,09h
 int 21h
-mov cl, strlen
-mov bx, 02fh
 
 lea DX,crlf ;New line
  mov AH,09h
@@ -419,7 +418,7 @@ call p
 
 lea ax, strudelMorse ; put the location of strudelMorse in ax
 call p
- 
+
 xor ax,ax
 lea dx, msg4 ;show msg4 on screen.
 mov ah, 09h
@@ -430,6 +429,7 @@ xor bx,bx
 xor dx,dx
 
 mov cl ,strlen ;put the length of the string in cl
+
 
 placeInString:  ; lop that goes throw every letter of the string by order.
 xor bx,bx
@@ -504,6 +504,12 @@ int 21h
 afterPrint:
 
 loop placeInString
+jmp afterLoop
+noString:
+lea DX,msg5 ;Show msg5 on screen
+mov AH,09h
+int 21h 
+afterLoop: 
 
 lea DX,msg3 ;Show msg3 on screen
 mov AH,09h
