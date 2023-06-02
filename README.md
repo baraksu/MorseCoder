@@ -76,7 +76,8 @@ changing data segment to 0740
 changing data segment to 0730
 ### proc unsegment#
 changing data segment to 0720
-
+### none translated key
+עשיתי שאם מה שהוקלד בלתי אפשרי לתרגום לקוד מורס, זה ידפיס השטאג.
 
   <a name="תכניות"></a>
  
